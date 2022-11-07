@@ -33,3 +33,6 @@ $ npm run start:prod
 
 ```
 
+### Read full tutorial
+Here is a full tutorial describing how to setup the project 
+https://medium.com/neo4j/creating-api-in-nestjs-with-graphql-neo4j-and-aws-cognito-cf92cf40b355
