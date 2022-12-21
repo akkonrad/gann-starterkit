@@ -21,7 +21,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "postinstall": "npm db:create"
+    "postinstall": "npm run db:init"
   },
   "dependencies": {
     "@neo4j/graphql": "^3.9.0",
