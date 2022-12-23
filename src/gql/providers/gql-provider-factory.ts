@@ -10,6 +10,7 @@ export const gqlProviderFactory = async () => {
     NEO4J_URI,
     NEO4J_USERNAME,
     NEO4J_PASSWORD,
+    USE_AUTH
   } = process.env;
 
   const driver = neo4j.driver(
@@ -17,20 +18,22 @@ export const gqlProviderFactory = async () => {
     neo4j.auth.basic(NEO4J_USERNAME, NEO4J_PASSWORD),
   );
 
+  const plugins = USE_AUTH ? {
+    auth: new Neo4jGraphQLAuthJWKSPlugin({
+      jwksEndpoint: `https://cognito-idp.${COGNITO_REGION}.amazonaws.com/${COGNITO_USER_POOL_ID}/.well-known/jwks.json`,
+    }),
+  } : {};
+
   // Define GraphQL schema and provide db driver
   const neoSchema = new Neo4jGraphQL({
     typeDefs,
     driver,
-    plugins: {
-      auth: new Neo4jGraphQLAuthJWKSPlugin({
-        jwksEndpoint: `https://cognito-idp.${COGNITO_REGION}.amazonaws.com/${COGNITO_USER_POOL_ID}/.well-known/jwks.json`,
-      }),
-    },
+    plugins
   });
 
   const schema = await neoSchema.getSchema();
   await neoSchema.assertIndexesAndConstraints({
-    options: { create: true },
+    options: {create: true},
   });
   return {
     playground: true,
