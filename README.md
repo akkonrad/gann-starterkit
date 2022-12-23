@@ -13,6 +13,9 @@ $ npm install
 
 Some env variables are required. Use `.env.example` as reference.
 
+Please note that you can disable authentication by setting USE_AUTH env variable to false. Just make sure you're not
+using @auth directive in your graphql type definitions.
+
 ## Running the app
 
 ```bash
@@ -34,5 +37,7 @@ $ npm run start:prod
 ```
 
 ### Read full tutorial
-Here is a full tutorial describing how to setup the project 
+
+Here is a full tutorial describing how to setup the project
 https://medium.com/neo4j/creating-api-in-nestjs-with-graphql-neo4j-and-aws-cognito-cf92cf40b355
+
